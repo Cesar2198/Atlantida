@@ -10,6 +10,6 @@ namespace API.Core.Domain.Generic
         public DateTime? fechaModificacion { get; set; }
         [MaxLength(128)]
         public string? modificadoPor { get; set; }
-        public bool status { get; set; } = true;
+        public string status { get; set; } = "1";
     }
 }
