@@ -24,11 +24,9 @@
     <Folder Include="Controllers\" />
     <Folder Include="Core\Application\Constants\" />
     <Folder Include="Core\Application\Features\" />
-    <Folder Include="Core\Application\Helpers\" />
     <Folder Include="Core\Application\MappingProfile\" />
     <Folder Include="Core\Application\Models\" />
     <Folder Include="Infraestructure\Persistence\" />
-    <Folder Include="Infraestructure\Services\" />
   </ItemGroup>
 
 </Project>

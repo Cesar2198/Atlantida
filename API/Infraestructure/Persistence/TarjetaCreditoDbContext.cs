@@ -28,7 +28,7 @@ public partial class TarjetaCreditoDbContext : DbContext
     {
         modelBuilder.Entity<MovimientosTarjeta>(entity =>
         {
-            entity.HasKey(e => e.IdMovimiento);
+            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.creadoPor)
                 .HasMaxLength(50)
@@ -65,7 +65,7 @@ public partial class TarjetaCreditoDbContext : DbContext
 
         modelBuilder.Entity<TarjetasCredito>(entity =>
         {
-            entity.HasKey(e => e.IdTarjeta);
+            entity.HasKey(e => e.Id);
 
             entity.ToTable("TarjetasCredito");
 

@@ -4,7 +4,6 @@ namespace API.Core.Domain
 {
     public class MovimientosTarjeta : BaseDomain
     {
-        public int IdMovimiento { get; set; }
 
         public int IdTarjeta { get; set; }
 

@@ -4,7 +4,6 @@ namespace API.Core.Domain
 {
     public class TarjetasCredito : BaseDomain
     {
-        public int IdTarjeta { get; set; }
 
         public string? NombreTitular { get; set; }
 
