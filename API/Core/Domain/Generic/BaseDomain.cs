@@ -4,7 +4,7 @@ namespace API.Core.Domain.Generic
 {
     public abstract class BaseDomain
     {
-        public long id { get; set; }
+        public int id { get; set; }
         public DateTime fechaCreacion { get; set; } = DateTime.Now;
         [MaxLength(128)]
         public string creadoPor { get; set; }

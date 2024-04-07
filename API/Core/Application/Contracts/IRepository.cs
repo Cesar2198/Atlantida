@@ -5,10 +5,10 @@ namespace API.Core.Application.Contracts
     public interface IRepository<T> where T : BaseDomain
     {
         Task<IReadOnlyList<T>> GetAllAsync();
-        Task<T> GetByIdAsync(long id);
+        Task<T> GetByIdAsync(int id);
         Task InsertAsync(T entity);
         void Update(T entity);
-        Task DeleteAsync(long id);
+        Task DeleteAsync(int id);
         IQueryable<T> GetQuery();
     }
 }

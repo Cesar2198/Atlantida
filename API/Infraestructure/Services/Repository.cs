@@ -14,7 +14,7 @@ namespace API.Infraestructure.Services
             this.db = db;
         }
 
-        public async Task DeleteAsync(long id)
+        public async Task DeleteAsync(int id)
         {
             db.Set<T>().Remove(await GetByIdAsync(id));
         }
@@ -24,7 +24,7 @@ namespace API.Infraestructure.Services
             return await db.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(long id)
+        public async Task<T> GetByIdAsync(int id)
         {
             return await db.Set<T>().FirstOrDefaultAsync(p => p.id == id);
         }
