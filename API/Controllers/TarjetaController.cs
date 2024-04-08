@@ -21,14 +21,14 @@ namespace API.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet()]
+        [HttpGet("List")]
         [ProducesResponseType(typeof(List<TarjetasCreditoDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<List<TarjetasCreditoDto>>> Get()
         {
             return Ok(await mediator.Send(new GetAllTarjetasQuery()));
         }
 
-        [HttpPost("info/{id}")]
+        [HttpGet("info/{id}")]
         [ProducesResponseType(typeof(TarjetasCreditoDto), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<TarjetasCreditoDto>> GetById(int id)
         {

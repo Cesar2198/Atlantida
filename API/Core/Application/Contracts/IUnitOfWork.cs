@@ -10,5 +10,6 @@ namespace API.Core.Application.Contracts
         Task<int> SaveChangesAsync();
         Task<IDbContextTransaction> TransactionScopeAsync();
         IRepositoryTarjeta RepositoryTarjeta { get; }
+        IRepositoryMovimiento RepositoryMovimiento { get; }
     }
 }

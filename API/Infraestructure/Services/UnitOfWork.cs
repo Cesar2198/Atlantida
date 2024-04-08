@@ -15,6 +15,7 @@ namespace API.Infraestructure.Services
         private readonly IConfiguration _configuration;
         private SqlConnection _connection;
         private IRepositoryTarjeta repositoryTarjeta;
+        private IRepositoryMovimiento repositoryMovimiento;
 
 
         public UnitOfWork(TarjetaCreditoDbContext _context, IConfiguration configuration)
@@ -26,6 +27,8 @@ namespace API.Infraestructure.Services
         }
 
         public IRepositoryTarjeta RepositoryTarjeta => repositoryTarjeta ??= new RepositoryTarjeta(OpenConnectionDapper());
+
+        public IRepositoryMovimiento RepositoryMovimiento => repositoryMovimiento ??= new RepositoryMovimiento(OpenConnectionDapper());
 
         public void Dispose()
         {

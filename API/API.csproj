@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Core\Application\Constants\" />
+    <Folder Include="Core\Application\Features\FeatureMovimientos\DTOs\" />
     <Folder Include="Core\Application\Models\" />
   </ItemGroup>
 

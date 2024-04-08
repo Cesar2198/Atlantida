@@ -4,7 +4,7 @@ namespace API.Core.Application.Helpers
 {
     public class Validations
     {
-        public static bool MayorQueCero(long id) => id > 0;
+        public static bool MayorQueCero(int id) => id > 0;
         public static bool EsFechaMenorAlaFechaActual(DateTime date)
         {
             bool result = date.Date < DateTime.Now.Date;
