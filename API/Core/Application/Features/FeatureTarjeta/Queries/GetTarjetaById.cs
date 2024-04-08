@@ -13,12 +13,10 @@ namespace API.Core.Application.Features.FeatureTarjeta.Queries
         public class GetTarjetaByIdQuery : IRequest<TarjetasCreditoDto>
         {
             public int id { get; set; }
-            public string? NumeroTarjeta { get; set; }
 
-            public GetTarjetaByIdQuery(int id, string? NumeroTarjeta)
+            public GetTarjetaByIdQuery(int id)
             {
                 this.id = id;
-                this.NumeroTarjeta = NumeroTarjeta;
             }
 
         }

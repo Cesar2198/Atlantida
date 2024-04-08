@@ -1,6 +1,8 @@
 ﻿using API.Core.Application.Contracts;
+using API.Core.Application.Contracts.Repositories;
 using API.Core.Domain.Generic;
 using API.Infraestructure.Persistence;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Collections;
 
@@ -10,15 +12,33 @@ namespace API.Infraestructure.Services
     {
         private readonly TarjetaCreditoDbContext context;
         private Hashtable _repositories;
+        private readonly IConfiguration _configuration;
+        private SqlConnection _connection;
+        private IRepositoryTarjeta repositoryTarjeta;
+        
 
-        public UnitOfWork(TarjetaCreditoDbContext context)
+        public UnitOfWork(TarjetaCreditoDbContext _context , IConfiguration configuration)
         {
-            this.context = context;
+            if (context is null)
+                _context = context;
+
+            _configuration = configuration;
         }
+
+        public IRepositoryTarjeta RepositoryTarjeta => repositoryTarjeta ??= new RepositoryTarjeta(OpenConnectionDapper());
 
         public void Dispose()
         {
-            context.Dispose();
+            if(context is not null)
+            {
+                context.Dispose();
+            }
+
+            if (_connection is not null)
+            {
+                _connection.Dispose();
+            }
+            
         }
 
         public async Task<int> SaveChangesAsync()
@@ -46,6 +66,14 @@ namespace API.Infraestructure.Services
             }
 
             return (IRepository<TEntity>)_repositories[type];
+        }
+
+        private SqlConnection OpenConnectionDapper()
+        {
+            if (_connection is null)
+                _connection = new SqlConnection(_configuration.GetConnectionString("dapper"));
+
+            return _connection;
         }
     }
 }

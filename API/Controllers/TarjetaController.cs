@@ -1,10 +1,12 @@
 ﻿using API.Core.Application.Features.FeatureTarjeta.DTOs;
+using API.Core.Application.Features.FeatureTarjeta.ViewModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using static API.Core.Application.Features.FeatureTarjeta.Commands.AddTarjeta;
 using static API.Core.Application.Features.FeatureTarjeta.Queries.GetAllTarjetas;
 using static API.Core.Application.Features.FeatureTarjeta.Queries.GetTarjetaById;
+using static API.Core.Application.Features.FeatureTarjeta.Queries.GetTarjetaWithInfo;
 
 namespace API.Controllers
 {
@@ -19,18 +21,25 @@ namespace API.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet]
+        [HttpGet()]
         [ProducesResponseType(typeof(List<TarjetasCreditoDto>), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<List<TarjetasCreditoDto>>> Get()
         {
             return Ok(await mediator.Send(new GetAllTarjetasQuery()));
         }
 
-        [HttpGet("{id:int}")]
+        [HttpPost("info/{id}")]
         [ProducesResponseType(typeof(TarjetasCreditoDto), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<TarjetasCreditoDto>> GetById(int id, string? NumeroTarjeta)
+        public async Task<ActionResult<TarjetasCreditoDto>> GetById(int id)
         {
-            return Ok(await mediator.Send(new GetTarjetaByIdQuery(id, NumeroTarjeta)));
+            return Ok(await mediator.Send(new GetTarjetaByIdQuery(id)));
+        }
+
+        [HttpPost("detail")]
+        [ProducesResponseType(typeof(TarjetaCreditoVM), (int)HttpStatusCode.OK)]
+        public async Task<ActionResult<TarjetaCreditoVM>> GetByNumber(int id, string NumeroTarjeta)
+        {
+            return Ok(await mediator.Send(new GetTarjetaWithInfoQuery(id, NumeroTarjeta)));
         }
 
         [HttpPost]
