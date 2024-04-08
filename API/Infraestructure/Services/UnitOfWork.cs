@@ -15,12 +15,12 @@ namespace API.Infraestructure.Services
         private readonly IConfiguration _configuration;
         private SqlConnection _connection;
         private IRepositoryTarjeta repositoryTarjeta;
-        
 
-        public UnitOfWork(TarjetaCreditoDbContext _context , IConfiguration configuration)
+
+        public UnitOfWork(TarjetaCreditoDbContext _context, IConfiguration configuration)
         {
             if (context is null)
-                _context = context;
+                context = _context;
 
             _configuration = configuration;
         }
@@ -29,7 +29,7 @@ namespace API.Infraestructure.Services
 
         public void Dispose()
         {
-            if(context is not null)
+            if (context is not null)
             {
                 context.Dispose();
             }
@@ -38,7 +38,7 @@ namespace API.Infraestructure.Services
             {
                 _connection.Dispose();
             }
-            
+
         }
 
         public async Task<int> SaveChangesAsync()
@@ -71,7 +71,7 @@ namespace API.Infraestructure.Services
         private SqlConnection OpenConnectionDapper()
         {
             if (_connection is null)
-                _connection = new SqlConnection(_configuration.GetConnectionString("dapper"));
+                _connection = new SqlConnection(_configuration.GetConnectionString("default"));
 
             return _connection;
         }
