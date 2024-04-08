@@ -1,0 +1,88 @@
+﻿@{
+    ViewData["Title"] = "Detalles";
+}
+
+<div class="container-xl">
+    <p class="fw-bold">Detalles de la tarjeta</p>
+</div>
+
+<div class="container-xl">
+    <div class=" shadow-lg p-3 detallesTarjeta">
+        <div class="d-flex justify-content-between">
+            <div>
+                <div>
+                    <p>Nombre titular en tarjeta</p>
+                    <h3>César Mauricio Guerrero Batres</h3>
+                </div>
+                <div>
+                    <p>Número de Tarjeta</p>
+                    <h3>4550-0606-1509-0099</h3>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <p>Saldo Disponible</p>
+                    <h3>$2,085.75</h3>
+                </div>
+                <div>
+                    <p>Saldo Actual</p>
+                    <h3>$114.25</h3>
+                </div>
+                <div>
+                    <p>Límite Crédito</p>
+                    <h3>$2,200.00</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <div>
+                            <p>Cuota mínima</p>
+                            <h3>$5.72</h3>
+                        </div>
+                        <div>
+                            <p>Monto total con interés</p>
+                            <h3>$143.08</h3>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div>
+                            <p>Interés bonificable</p>
+                            <h3>$28.61</h3>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-end gap-3">
+            <button class="btn colorAtlantida text-light shadow-lg">Comprar <i class="fas fa-credit-card ms-3"></i></button>
+            <button class="btn colorAtlantida text-light shadow-lg">Pagar <i class="fas fa-credit-card ms-3"></i></button>
+        </div>
+        <!--Seccion de listado de los movimientos-->
+    </div>
+    <div class="movimientosTarjeta mt-3">
+        <div id="ListadoMovimientos">
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        //Al cargar la vista mostraremos las compras de la tarjeta
+        $(document).ready(function () {
+            Listado();
+        })
+
+        function Listado() {
+            var url = '@Url.Action("Listado", "Movimiento")';
+            CallAsync("GET", url, "#ListadoMovimientos")
+        }
+    </script>
+}
+
+

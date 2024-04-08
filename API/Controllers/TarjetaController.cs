@@ -37,9 +37,9 @@ namespace API.Controllers
 
         [HttpPost("detail")]
         [ProducesResponseType(typeof(TarjetaCreditoVM), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<TarjetaCreditoVM>> GetByNumber(int id, string NumeroTarjeta)
+        public async Task<ActionResult<TarjetaCreditoVM>> GetByNumber(GetTarjetaWithInfoQuery request)
         {
-            return Ok(await mediator.Send(new GetTarjetaWithInfoQuery(id, NumeroTarjeta)));
+            return Ok(await mediator.Send(request));
         }
 
         [HttpPost]
