@@ -16,3 +16,21 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/*Css personalizado*/
+.colorAtlantida {
+    background-color: #D9272E !important;
+}
+
+.navBarAtlantida{
+    color: white !important;
+}
+
+.fuenteTabla {
+    font-size: 10px !important;
+    text-align: center !important;
+}
+
+.fuenteBotones {
+    font-size: 10px !important
+}
