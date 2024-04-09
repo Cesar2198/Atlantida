@@ -21,7 +21,16 @@ namespace CLIENT.Controllers
             return View(movimientos);
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Movimiento(int idTarjeta, int tipoMovimiento)
+        {
+            ViewBag.tipoMovimiento = tipoMovimiento;
+            ViewBag.idTarjeta = idTarjeta;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Movimiento(MovimientosTarjetaVM movimientos)
         {
             return View();
         }

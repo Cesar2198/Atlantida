@@ -2,7 +2,7 @@
 {
     public class MovimientosTarjetaVM
     {
-        public int id { get; set; }
+        public int? id { get; set; }
         public int idTarjeta { get; set; }
         public string descripcion { get; set; }
         public DateTime fechaMovimiento { get; set; }

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = null;
+}
+<p class="fw-bolder">
+    @{
+        string TipoMovimiento = (ViewBag.tipoMovimiento == 1) ? "compra" : "pago";
+    }
+    Registro de @TipoMovimiento para la tarjeta
+</p>
+<div class="mt-2">
+    <form id="FormMovimiento">
+        <input type="hidden" value="@ViewBag.tipoMovimiento" />
+        <input type="hidden" value="@ViewBag.idTarjeta" name="idTarjeta" />
+        <div class="form-floating mb-3">
+            <input name="fechaMovimiento" readonly id="fechaMovimiento" type="date" class="form-control" />
+            <label>Fecha de @TipoMovimiento</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea name="descripcion" class="form-control"></textarea>
+            <label>Descripción</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input class="form-control" id="monto" type="text" name="monto" />
+            <label>Monto</label>
+        </div>
+        <div class="form-group d-flex justify-content-end align-items-end mt-2">
+            <button type="button" class="btn btn-primary" onclick="SendDataFormAdd()"> <i class="fas fa-plus me-2"></i>Guardar @TipoMovimiento</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function () {
+        setActualDate("#fechaMovimiento");
+        $('#monto').inputmask({
+            alias: 'numeric',
+            groupSeparator: ',',
+            autoGroup: true,
+            digits: 2,
+            digitsOptional: false,
+            prefix: '$',
+            placeholder: '0',
+            rightAlign: false,
+            autoUnmask: true,
+            clearMaskOnLostFocus: true,
+            removeMaskOnSubmit: true
+        });
+    })
+</script>
+
+
+

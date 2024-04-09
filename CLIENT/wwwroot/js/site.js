@@ -25,11 +25,11 @@ function CallAsync(metodo, vista, destino) {
             $.unblockUI();
         },
         failure: function (response) {
-            alertiy.error(response.responseText);
+            alertify.error(response.responseText);
             $.unblockUI();
         },
         error: function (response) {
-            alertiy.error(response.responseText);
+            alertify.error(response.responseText);
             $.unblockUI();
         }
     });
