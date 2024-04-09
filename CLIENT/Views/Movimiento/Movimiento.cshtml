@@ -9,14 +9,14 @@
 </p>
 <div class="mt-2">
     <form id="FormMovimiento">
-        <input type="hidden" value="@ViewBag.tipoMovimiento" />
+        <input type="hidden" value="@ViewBag.tipoMovimiento" name="tipoMovimiento" />
         <input type="hidden" value="@ViewBag.idTarjeta" name="idTarjeta" />
         <div class="form-floating mb-3">
             <input name="fechaMovimiento" readonly id="fechaMovimiento" type="date" class="form-control" />
             <label>Fecha de @TipoMovimiento</label>
         </div>
         <div class="form-floating mb-3">
-            <textarea name="descripcion" class="form-control"></textarea>
+            <textarea name="descripcion" style="height: 100px" class="form-control"></textarea>
             <label>Descripción</label>
         </div>
         <div class="form-floating mb-3">
@@ -24,7 +24,7 @@
             <label>Monto</label>
         </div>
         <div class="form-group d-flex justify-content-end align-items-end mt-2">
-            <button type="button" class="btn btn-primary" onclick="SendDataFormAdd()"> <i class="fas fa-plus me-2"></i>Guardar @TipoMovimiento</button>
+            <button type="button" class="btn colorAtlantida text-light" onclick="SendDataFormAdd()">Guardar @TipoMovimiento <i class="fas fa-plus ms-2"></i></button>
         </div>
     </form>
 </div>

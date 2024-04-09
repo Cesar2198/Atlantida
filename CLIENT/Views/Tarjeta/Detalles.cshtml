@@ -142,7 +142,22 @@
         //Funcion para enviar los datos
         function SendDataFormAdd() {
             let form = $('#FormMovimiento').serialize();
-            console.log(form);
+            $.ajax({
+                url: '@Url.Action("Movimiento", "Movimiento")',
+                type: 'POST',
+                data: form,
+                headers: { "RequestVerificationToken": $('input[name="__RequestVerficationToken"]').val() },
+                success: function (response) {
+                    if (response.estado == "Error") {
+                        alertify.error("Ha ocurrido un error");
+                    } else if (response.estado == "Todo bien") {
+                        alertify.success("Información Guardada con éxito");
+                        $('#ModalMovimiento').modal('hide');
+                    } else {
+                        $('#modalCuerpoMovimiento').html(response);
+                    }
+                }
+            })
         }
 
     </script>
