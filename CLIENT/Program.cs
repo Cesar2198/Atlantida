@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<IServiceTarjeta, ServiceTarjeta>();
+builder.Services.AddScoped<IServiceMovimientosTarjeta, ServiceMovimientosTarjeta>();
 
 
 

@@ -2,7 +2,82 @@
     Layout = null;
 }
 
+@model List<CLIENT.Models.ViewModels.MovimientosTarjetaVM>
+
 <div class="container-xl">
-    <p class="fw-bold">Detalle de compras</p>
+    <div class="row">
+        <div class="col-lg-6" style="max-height: 200px; overflow-y: auto;">
+            <table class="table fuenteTabla table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var movimiento in Model)
+                    {
+                        <tr>
+                            <td>
+                                <p>@movimiento.fechaMovimiento.ToString("dd/MM/yyyy")</p>
+                            </td>
+                            <td class="text-end">
+                                <div class="gap-1">
+                                <p>@movimiento.descripcion</p>
+                                <p>@movimiento.monto.ToString("C")</p>
+                                </div>
+                            </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+     
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th class="text-secondary">
+                            Total
+                        </th>
+                        <th class="text-end">@Model.Sum(x=> x.monto).ToString("C")</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-end gap-3">
+                <button class="btn colorExcel text-light shadow-lg">Exportar<i class="fas fa-file-excel ms-3"></i></button>
+                <button class="btn colorAtlantida text-light shadow-lg">Exportar <i class="fas fa-file-pdf ms-3"></i></button>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    //Al cargar la vista mostraremos las compras de la tarjeta
+    $(document).ready(function () {
+        $('#mesActual, #mesPasado').change(function () {
+            if ($(this).is(':checked')) {
+                var opcion = $(this).val();
+                if(opcion == "mesActual"){
+                    var fechaActual = new Date();
+                    var mesActual = fechaActual.getMonth() + 1;
+                    var anioActual = fechaActual.getFullYear();
+                    Listado(mesActual, anioActual)
+                    $(this).prop('checked', true);
+                }else{
+                    var fechaActual = new Date();
+                    var mesActual = fechaActual.getMonth() + 1;
+                    var anioActual = fechaActual.getFullYear();
+                    Listado(mesActual - 1, anioActual);
+                    $(this).prop('checked', true);
+                }
+            }
+        });
+    })
+</script>
 
