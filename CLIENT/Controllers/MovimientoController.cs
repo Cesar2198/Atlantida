@@ -1,6 +1,7 @@
 ﻿using CLIENT.Models.ViewModels;
 using CLIENT.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 
 namespace CLIENT.Controllers
 {
@@ -58,6 +59,40 @@ namespace CLIENT.Controllers
             {
 
                 return Json(new { estado = "Error" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetExcelCompras(int id, string numeroTarjeta, int mes, int anio)
+        {
+            List<MovimientosTarjetaVM> movimientos = await _serviceMovimientos.ObtenerMovimientosTarjeta(id, numeroTarjeta, 1, mes, anio);
+
+            using (var package = new ExcelPackage())
+            {
+                var worksheet1 = package.Workbook.Worksheets.Add("Compras");
+                worksheet1.Cells["A1"].Value = "Fecha de Compra";
+                worksheet1.Cells["B1"].Value = "Descripción";
+                worksheet1.Cells["C1"].Value = "Monto";
+
+                int row = 2;
+                foreach (var movimiento in movimientos)
+                {
+                    worksheet1.Cells[$"A{row}"].Value = movimiento.fechaMovimiento.ToLongDateString();
+                    worksheet1.Cells[$"B{row}"].Value = movimiento.descripcion;
+                    worksheet1.Cells[$"C{row}"].Value = movimiento.monto.ToString("C");
+                    row++;
+                }
+                worksheet1.Columns.AutoFit();
+                worksheet1.Cells["A1:C1"].Style.Font.Bold = true;
+
+                var stream = new MemoryStream();
+                package.SaveAs(stream);
+
+                // Set the stream position to the beginning
+                stream.Position = 0;
+
+                // Return the stream as a FileResult
+                return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "ComprasTarjeta" + numeroTarjeta + DateTime.Now + ".xlsx");
             }
         }
     }

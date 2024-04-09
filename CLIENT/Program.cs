@@ -1,5 +1,7 @@
 using CLIENT.Services.Contracts;
 using CLIENT.Services;
+using System.ComponentModel;
+using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.AddScoped<IServiceMovimientosTarjeta, ServiceMovimientosTarjeta
 
 var app = builder.Build();
 
+ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
 
 
 

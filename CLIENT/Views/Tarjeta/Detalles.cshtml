@@ -93,6 +93,12 @@
         </div>
         <div id="ListadoMovimientos" class="ListadoMovimientos">
         </div>
+        <div class="col-lg-6 d-flex justify-content-end">
+            <div class="d-flex justify-content-end gap-3">
+                <button onClick="exportarExcel()" class="btn colorExcel text-light shadow-lg">Exportar<i class="fas fa-file-excel ms-3"></i></button>
+                <button class="btn colorAtlantida text-light shadow-lg">Exportar <i class="fas fa-file-pdf ms-3"></i></button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -167,7 +173,18 @@
                 }
             })
         }
-
+        ///Exportar excel de compras
+        function exportarExcel(){
+            var fechaActual = new Date();
+            var mes = fechaActual.getMonth() + 1;
+            var anio = fechaActual.getFullYear();
+            if ($('#mesPasado').is(':checked')) {  
+               mes = mes - 1;
+            }
+            var url = '@Url.Action("GetExcelCompras", "Movimiento")';
+            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + encodeURIComponent(@Model.numeroTarjeta) + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
+            window.open(url, '_blank');
+        }
     </script>
 }
 
