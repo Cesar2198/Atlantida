@@ -61,7 +61,14 @@
         </div>
         <div class="d-flex justify-content-end gap-3">
             <button class="btn colorAtlantida text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 1)"> Comprar <i class="fas fa-credit-card ms-3"></i></button>
+            @if(Model.saldoTotal == 0)
+            {
+                <button class="btn colorAtlantida disabled text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 2)">Pagar <i class="fas fa-credit-card ms-3"></i></button>
+            }
+            else{
             <button class="btn colorAtlantida text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 2)">Pagar <i class="fas fa-credit-card ms-3"></i></button>
+            }
+         
         </div>
         <!--Seccion de listado de los movimientos-->
     </div>
@@ -151,8 +158,9 @@
                     if (response.estado == "Error") {
                         alertify.error("Ha ocurrido un error");
                     } else if (response.estado == "Todo bien") {
-                        alertify.success("Información Guardada con éxito");
+                        alertify.success("Realizado con éxito");
                         $('#ModalMovimiento').modal('hide');
+                        location.reload();
                     } else {
                         $('#modalCuerpoMovimiento').html(response);
                     }

@@ -14,6 +14,23 @@ namespace CLIENT.Services
             _httpClient = httpClient;
         }
 
+        public async Task<string> GuardarMovimiento(MovimientosTarjetaVM movimiento)
+        {
+            var jsonData = JsonSerializer.Serialize(movimiento);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync("http://localhost:5100/api/Movimiento", content);
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonString = await response.Content.ReadAsStringAsync();
+                return jsonString;
+            }
+            else
+            {
+                throw new Exception($"Error al obtener los movimientos de la tarjeta. Código de estado: {response.StatusCode}");
+            }
+        }
+
         public async Task<List<MovimientosTarjetaVM>> ObtenerMovimientosTarjeta(int idTarjeta, string numeroTarjeta, int tipo, int mes, int anio)
         {
             var requestData = new
