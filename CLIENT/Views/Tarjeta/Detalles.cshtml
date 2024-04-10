@@ -9,6 +9,7 @@
 </div>
 
 <div class="container-xl">
+    <input type="hidden" id="numeroTarjeta" value="@Model.numeroTarjeta"/>
     <div class=" shadow-lg p-3 detallesTarjeta">
         <div class="d-flex justify-content-between">
             <div>
@@ -61,14 +62,15 @@
         </div>
         <div class="d-flex justify-content-end gap-3">
             <button class="btn colorAtlantida text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 1)"> Comprar <i class="fas fa-credit-card ms-3"></i></button>
-            @if(Model.saldoTotal == 0)
+            @if (Model.saldoTotal == 0)
             {
                 <button class="btn colorAtlantida disabled text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 2)">Pagar <i class="fas fa-credit-card ms-3"></i></button>
             }
-            else{
-            <button class="btn colorAtlantida text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 2)">Pagar <i class="fas fa-credit-card ms-3"></i></button>
+            else
+            {
+                <button class="btn colorAtlantida text-light shadow-lg" onclick="OpenModalMovimiento(@Model.id, 2)">Pagar <i class="fas fa-credit-card ms-3"></i></button>
             }
-         
+
         </div>
         <!--Seccion de listado de los movimientos-->
     </div>
@@ -96,7 +98,7 @@
         <div class="col-lg-6 d-flex justify-content-end">
             <div class="d-flex justify-content-end gap-3">
                 <button onClick="exportarExcel()" class="btn colorExcel text-light shadow-lg">Exportar<i class="fas fa-file-excel ms-3"></i></button>
-                <button class="btn colorAtlantida text-light shadow-lg">Exportar <i class="fas fa-file-pdf ms-3"></i></button>
+                <button onClick="exportarEstadoCuenta()" class="btn colorAtlantida text-light shadow-lg">Exportar <i class="fas fa-file-pdf ms-3"></i></button>
             </div>
         </div>
     </div>
@@ -108,7 +110,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <p   class="modal-title" id="exampleModalLabel">Movimiento<br /></p>
+                <p class="modal-title" id="exampleModalLabel">Movimiento<br /></p>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modalCuerpoMovimiento">
@@ -142,7 +144,7 @@
         //Funcion para cargar el listado
         function Listado(mes, anio) {
             var url = '@Url.Action("Listado", "Movimiento")';
-            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + encodeURIComponent(@Model.numeroTarjeta) + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
+            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + $('#numeroTarjeta').val() + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
             CallAsync("GET", url, "#ListadoMovimientos")
         }
         //Fucion para abrir el modal de movimientos
@@ -174,15 +176,28 @@
             })
         }
         ///Exportar excel de compras
-        function exportarExcel(){
+        function exportarExcel() {
             var fechaActual = new Date();
             var mes = fechaActual.getMonth() + 1;
             var anio = fechaActual.getFullYear();
-            if ($('#mesPasado').is(':checked')) {  
-               mes = mes - 1;
+            if ($('#mesPasado').is(':checked')) {
+                mes = mes - 1;
             }
             var url = '@Url.Action("GetExcelCompras", "Movimiento")';
-            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + encodeURIComponent(@Model.numeroTarjeta) + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
+            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + $('#numeroTarjeta').val() + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
+            window.open(url, '_blank');
+        }
+
+        //Funcion para exportar el pdf del estado de cuenta del mes actual o pasado
+        function exportarEstadoCuenta() {
+            var fechaActual = new Date();
+            var mes = fechaActual.getMonth() + 1;
+            var anio = fechaActual.getFullYear();
+            if ($('#mesPasado').is(':checked')) {
+                mes = mes - 1;
+            }
+            var url = '@Url.Action("ImprimirEstadoCuenta", "Tarjeta")';
+            url += '?id=' + encodeURIComponent(@Model.id) + '&numeroTarjeta=' + $('#numeroTarjeta').val() + "&mes=" + encodeURIComponent(mes) + "&anio=" + encodeURIComponent(anio);
             window.open(url, '_blank');
         }
     </script>
